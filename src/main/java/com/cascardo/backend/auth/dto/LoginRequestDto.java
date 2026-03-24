@@ -6,7 +6,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 public record LoginRequestDto(
 
         String email,
-
         String password
 
 ) {

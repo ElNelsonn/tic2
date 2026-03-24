@@ -1,9 +1,8 @@
 package com.cascardo.backend.auth;
 
-import com.nightmap.backend.auth.dto.LoginRequestDto;
-import com.nightmap.backend.auth.dto.LoginResponseDto;
-import com.nightmap.backend.auth.dto.RefreshRequestDto;
-import com.nightmap.backend.auth.dto.RefreshResponseDto;
+
+import com.cascardo.backend.auth.dto.LoginRequestDto;
+import com.cascardo.backend.auth.dto.LoginResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,11 +25,6 @@ public class AuthController {
         return ResponseEntity.ok(authService.authenticate(loginRequest, request));
     }
 
-    @PostMapping("/refresh")
-    public ResponseEntity<RefreshResponseDto> refreshToken(@Valid @RequestBody RefreshRequestDto refreshRequest, HttpServletRequest request) {
-
-        return ResponseEntity.ok(authService.refresh(refreshRequest, request));
-    }
 
 
 

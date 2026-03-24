@@ -1,8 +1,8 @@
 package com.cascardo.backend.auth.user.details;
 
-import com.nightmap.backend.auth.dto.CustomUserDetailsDto;
-import com.nightmap.backend.user.User;
-import com.nightmap.backend.user.UserRepository;
+import com.cascardo.backend.auth.dto.CustomUserDetailsDto;
+import com.cascardo.backend.models.User;
+import com.cascardo.backend.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,9 +23,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         return CustomUserDetails.builder().
                 id(user.getId()).
                 email(user.getEmail()).
-                username(user.getUsername()).
+                name(user.getName()).
+                lastName(user.getLastName()).
                 hashedPassword(user.getHashedPassword()).
-                roles(user.getRoles()).
                 build();
 
     }
@@ -35,9 +35,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         return CustomUserDetails.builder().
                 id(userDetailsDto.id()).
                 email(userDetailsDto.email()).
-                username(userDetailsDto.username()).
+                name(userDetailsDto.name()).
+                lastName(userDetailsDto.lastName()).
                 hashedPassword(userDetailsDto.hashedPassword()).
-                roles(userDetailsDto.roles()).
                 build();
     }
 

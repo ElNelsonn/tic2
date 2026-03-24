@@ -1,9 +1,8 @@
 package com.cascardo.backend.auth.jwt;
 
 
-import com.nightmap.backend.auth.Role;
-import com.nightmap.backend.auth.dto.CustomUserDetailsDto;
-import com.nightmap.backend.auth.user.details.CustomUserDetails;
+import com.cascardo.backend.auth.user.details.CustomUserDetails;
+import com.cascardo.backend.auth.dto.CustomUserDetailsDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -25,12 +24,6 @@ public class JwtService {
 
     @Value("${jwt.secret}")
     private String SECRET_KEY;
-
-    @Value("${jwt.expiration-access-ms}")
-    private long EXPIRATION_TIME_ACCESS;
-
-    @Value("${jwt.expiration-refresh-ms}")
-    private long EXPIRATION_TIME_REFRESH;
 
     private SecretKey signedKey;
 
@@ -64,27 +57,13 @@ public class JwtService {
                 .header().add("typ", "JWT").and()
                 .subject(userDetails.getEmail())
                 .claim("id", userDetails.getId())
-                .claim("username", userDetails.getUsername())
-                .claim("roles", userDetails.getRoles().stream().map(role -> role.name()).toList())
-                .claim("type", "ACCESS")
+                .claim("name", userDetails.getUsername())
+                .claim("lastname", userDetails.getLastName())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_ACCESS))
+                .expiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 30))
                 .signWith(getSignInKey(), Jwts.SIG.HS512)
                 .compact();
     }
-
-    public String generateRefreshToken(CustomUserDetails userDetails) {
-
-        return Jwts.builder()
-                .header().add("typ", "JWT").and()
-                .subject(userDetails.getEmail())
-                .claim("type", "REFRESH")
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_REFRESH))
-                .signWith(getSignInKey(), Jwts.SIG.HS512)
-                .compact();
-    }
-
 
     private String extractTokenType(String token) {
         return extractClaim(token, claims -> claims.get("type", String.class));
@@ -113,19 +92,12 @@ public class JwtService {
             throw new JwtException("Tipo de token invalido.");
         }
 
-        List<?> rolesRaw = claims.get("roles", List.class);
-
-        List<Role> roles = (rolesRaw == null) ? List.of() : rolesRaw.stream()
-                .map(Object::toString)
-                .map(Role::valueOf)
-                .toList();
-
         return CustomUserDetailsDto.builder().
                 email(claims.getSubject()).
-                username(claims.get("username", String.class)).
+                name(claims.get("name", String.class)).
+                lastName(claims.get("lastName", String.class)).
                 id(claims.get("id", Long.class)).
                 hashedPassword(null).
-                roles(roles).
                 build();
 
     }

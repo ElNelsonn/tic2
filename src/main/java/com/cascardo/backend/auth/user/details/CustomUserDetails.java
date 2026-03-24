@@ -1,6 +1,6 @@
 package com.cascardo.backend.auth.user.details;
 
-import com.nightmap.backend.auth.Role;
+
 import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,17 +15,15 @@ import java.util.List;
 public class CustomUserDetails implements UserDetails {
 
     private Long id;
-    private String username;
+    private String name;
+    private String lastName;
     private String email;
     private String hashedPassword;
-    private List<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        return roles.stream().
-                map(role -> new SimpleGrantedAuthority(role.name())).
-                toList();
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
@@ -35,11 +33,11 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return name;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public String getLastName() {
+        return lastName;
     }
 
     public String getEmail() {

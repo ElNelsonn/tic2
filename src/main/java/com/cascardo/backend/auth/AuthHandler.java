@@ -1,8 +1,7 @@
 package com.cascardo.backend.auth;
 
-
-import com.nightmap.backend.auth.exceptions.SessionExpiredException;
-import com.nightmap.backend.shared.dto.ErrorResponse;
+import com.cascardo.backend.auth.exceptions.SessionExpiredException;
+import com.cascardo.backend.dto.ErrorResponse;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;

@@ -5,8 +5,7 @@ import java.time.LocalDateTime;
 public record LoginResponseDto(
 
         String email,
-        String jwtRefreshToken,
-        String jwtAccessToken,
+        String jwtToken,
         LocalDateTime timestamp,
         String ip
 

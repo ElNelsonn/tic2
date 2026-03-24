@@ -1,9 +1,9 @@
 package com.cascardo.backend.auth.jwt;
 
 
-import com.nightmap.backend.auth.dto.CustomUserDetailsDto;
-import com.nightmap.backend.auth.user.details.CustomUserDetails;
-import com.nightmap.backend.auth.user.details.CustomUserDetailsService;
+import com.cascardo.backend.auth.dto.CustomUserDetailsDto;
+import com.cascardo.backend.auth.user.details.CustomUserDetails;
+import com.cascardo.backend.auth.user.details.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
