@@ -1,12 +1,15 @@
 package com.cascardo.backend.auth.dto;
 
 
+import lombok.Builder;
 import org.springframework.security.authentication.BadCredentialsException;
 
+@Builder
 public record LoginRequestDto(
 
         String email,
-        String password
+        String password,
+        Boolean rememberMe
 
 ) {
     public LoginRequestDto {

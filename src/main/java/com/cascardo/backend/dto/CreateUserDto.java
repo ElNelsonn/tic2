@@ -1,10 +1,11 @@
 package com.cascardo.backend.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 
 import java.time.LocalDate;
 
-
+@Builder
 public record CreateUserDto (
 
     @NotNull(message = "El nombre no puede ser nulo.")

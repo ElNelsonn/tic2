@@ -2,12 +2,15 @@ package com.cascardo.backend.services;
 
 
 import com.cascardo.backend.dto.CreateUserDto;
+import com.cascardo.backend.dto.UserDto;
 import com.cascardo.backend.exceptions.EmailAlreadyInUseException;
+import com.cascardo.backend.exceptions.UserNotFoundException;
 import com.cascardo.backend.mappers.UserMapper;
 import com.cascardo.backend.models.User;
 import com.cascardo.backend.repositories.UserRepository;
 import com.cascardo.backend.validators.UserValidator;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +34,23 @@ public class UserService {
 
         userRepository.save(newUser);
     }
+
+    @Transactional(readOnly = true)
+    public UserDto getUserByEmail(String email) {
+
+        return userRepository.findByEmail(email)
+                .map(u -> UserMapper.toDto(u) )
+                .orElseThrow(() -> new UserNotFoundException("El usuario no existe."));
+
+    }
+
+
+
+
+
+
+
+
 
 
 }

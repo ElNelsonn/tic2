@@ -51,7 +51,7 @@ public class JwtService {
         return this.signedKey;
     }
 
-    public String generateToken(CustomUserDetails userDetails) {
+    public String generateLastingToken(CustomUserDetails userDetails) {
 
         return Jwts.builder()
                 .header().add("typ", "JWT").and()
@@ -61,6 +61,20 @@ public class JwtService {
                 .claim("lastname", userDetails.getLastName())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 30))
+                .signWith(getSignInKey(), Jwts.SIG.HS512)
+                .compact();
+    }
+
+    public String generateFastToken(CustomUserDetails userDetails) {
+
+        return Jwts.builder()
+                .header().add("typ", "JWT").and()
+                .subject(userDetails.getEmail())
+                .claim("id", userDetails.getId())
+                .claim("name", userDetails.getUsername())
+                .claim("lastname", userDetails.getLastName())
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60))
                 .signWith(getSignInKey(), Jwts.SIG.HS512)
                 .compact();
     }

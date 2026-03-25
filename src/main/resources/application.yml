@@ -1,3 +1,28 @@
 spring:
+
   application:
     name: backend
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    defer-datasource-initialization: false
+
+
+
+
+
+
+jwt:
+
+  expiration-access-ms: 900000
+
+  expiration-refresh-ms: 2592000000
+
+  secret: "GgufvTUFtftgFTDrfoGYgyigvghuFTft7ftuF57E46ftyuFT7F86R65R465e43sRd56E45ws5drD758ed5E456WDftfib698vr56x3422z3rcdgvf34vc7H8ty6FGYG8yuygYgyg67yf6fiopjpijJKOHDRTSbi67bn78nyuy"

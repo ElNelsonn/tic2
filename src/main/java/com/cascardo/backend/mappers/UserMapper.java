@@ -1,6 +1,7 @@
 package com.cascardo.backend.mappers;
 
 import com.cascardo.backend.dto.CreateUserDto;
+import com.cascardo.backend.dto.UserDto;
 import com.cascardo.backend.models.User;
 
 public class UserMapper {
@@ -15,4 +16,16 @@ public class UserMapper {
                 hashedPassword(hashedPassword).
                 build();
     }
+
+    public static UserDto toDto(User user, String) {
+
+        return User.builder().
+                email(createUserDto.email()).
+                name(createUserDto.name()).
+                lastName(createUserDto.lastName()).
+                hashedPassword(hashedPassword).
+                build();
+    }
+
+
 }

@@ -37,7 +37,15 @@ public class AuthService {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
 
         // 3. Generar Token
-        String token = jwtService.generateToken(userDetails);
+        String token;
+        if (request.rememberMe()) {
+
+            token = jwtService.generateLastingToken(userDetails);
+
+        } else {
+
+            token = jwtService.generateFastToken(userDetails);
+        }
 
         // 4. Devolver Record
         return new LoginResponseDto(
