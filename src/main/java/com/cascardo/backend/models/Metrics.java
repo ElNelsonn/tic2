@@ -24,8 +24,8 @@ import java.util.List;
 public class Metrics {
 
     @Id
-    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     private Long id;
 
     @Column(name = "DATE_TIME", nullable = false, unique = true)
@@ -37,14 +37,15 @@ public class Metrics {
     @Column(name = "HUMIDITY", nullable = false)
     private Float humidity;
 
-    @Column(name = "CREATED_AT", nullable = false, updatable = false)
     @CreationTimestamp
+    @Column(name = "CREATED_AT", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "UPDATED_AT", nullable = false)
     @UpdateTimestamp
+    @Column(name = "UPDATED_AT", nullable = false)
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "metric")
+    @OneToMany(mappedBy = "metric", fetch = FetchType.LAZY)
+    @Builder.Default
     private List<HelmetEvent> events = new ArrayList<>();
 }

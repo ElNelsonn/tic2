@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 
 
+
 @Entity
 @Table(name = "HELMET_EVENTS")
 @Getter
@@ -20,19 +21,13 @@ import java.time.LocalDateTime;
 public class HelmetEvent {
 
     @Id
-    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "EVENT_TYPE", nullable = false)
     private EventType type;
-
-    @Column(name = "DATE_TIME", nullable = false)
-    private LocalDateTime dateTime;
-
-    @OneToOne(mappedBy = "parentEvent")
-    private HelmetEvent childEvent;
 
     @Column(name = "DURATION", nullable = false)
     private Integer duration;
@@ -40,23 +35,31 @@ public class HelmetEvent {
     @Column(name = "IMAGE_URL", nullable = false)
     private String imageUrl;
 
+    @OneToOne(mappedBy = "parentEvent")
+    private HelmetEvent childEvent;
+
     @OneToOne
     @JoinColumn(name = "PARENT_EVENT_ID")
     private HelmetEvent parentEvent;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(
-            name = "METRIC_DATE_TIME",
+            name = "DATE_TIME",
             referencedColumnName = "DATE_TIME",
             nullable = false
     )
     private Metrics metric;
 
-    @Column(name = "CREATED_AT", nullable = false, updatable = false)
     @CreationTimestamp
+    @Column(name = "CREATED_AT", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "UPDATED_AT", nullable = false)
     @UpdateTimestamp
+    @Column(name = "UPDATED_AT", nullable = false)
     private LocalDateTime updatedAt;
+
+    @Transient
+    public LocalDateTime getDateTime() {
+        return metric != null ? metric.getDateTime() : null;
+    }
 }
