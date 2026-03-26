@@ -1,32 +1,30 @@
 package com.cascardo.backend.services;
 
-import com.cascardo.backend.dto.CreateHalmetEventDto;
-import com.cascardo.backend.dto.HalmetEventDto;
-import com.cascardo.backend.mappers.HalmetEventMapper;
-import com.cascardo.backend.models.HalmetEvent;
-import com.cascardo.backend.repositories.HalmetEventRepository;
-import com.cascardo.backend.validators.HalmetEventValidator;
+import com.cascardo.backend.dto.CreateHelmetEventDto;
+import com.cascardo.backend.mappers.HelmetEventMapper;
+import com.cascardo.backend.models.HelmetEvent;
+import com.cascardo.backend.repositories.HelmetEventRepository;
+import com.cascardo.backend.validators.HelmetEventValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class HalmetEventService {
 
-    private final HalmetEventRepository halmetEventRepository;
-    private final HalmetEventValidator halmetEventValidator;
+    private final HelmetEventRepository helmetEventRepository;
+    private final HelmetEventValidator helmetEventValidator;
 
     @Transactional
-    public HalmetEvent createHalmetEvent(CreateHalmetEventDto createHalmetEventDto) {
+    public HelmetEvent createHelmetEvent(CreateHelmetEventDto createHelmetEventDto) {
         
-        if(createHalmetEventDto.parentEventId() != null){
-            halmetEventValidator.validateParentEventExists(createHalmetEventDto.parentEventId());
+        if(createHelmetEventDto.parentEventId() != null){
+            helmetEventValidator.validateParentEventExists(createHelmetEventDto.parentEventId());
         }
         
-        HalmetEvent newEvent = HalmetEventMapper.toEntity(createHalmetEventDto);
-        return halmetEventRepository.save(newEvent);
+        HelmetEvent newEvent = HelmetEventMapper.toEntity(createHelmetEventDto);
+        return helmetEventRepository.save(newEvent);
     }
 
 

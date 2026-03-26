@@ -1,0 +1,17 @@
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: cascardo_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: cascardo_db
+      POSTGRES_USER: cascardo_user
+      POSTGRES_PASSWORD: cascardo_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+volumes:
+  postgres_data:

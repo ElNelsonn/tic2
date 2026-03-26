@@ -1,12 +1,12 @@
 package com.cascardo.backend.dto;
 
+import com.cascardo.backend.enums.EventType;
 import jakarta.validation.constraints.*;
 
-public record CreateHalmetEventDto(
+public record CreateHelmetEventDto(
 
     @NotNull(message = "El tipo de evento no puede ser nulo.")
-    @Size(min = 1, max = 100, message = "El tipo de evento debe contener entre 1 y 100 caracteres.")
-    String eventType,
+    EventType type,
 
     @NotNull(message = "La duración no puede ser nula.")
     @Min(value = 0, message = "La duración debe ser mayor o igual a 0.")

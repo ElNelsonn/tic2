@@ -1,24 +1,25 @@
 package com.cascardo.backend.validators;
 
-import com.cascardo.backend.models.HalmetEvent;
-import com.cascardo.backend.repositories.HalmetEventRepository;
+import com.cascardo.backend.enums.EventType;
+import com.cascardo.backend.models.HelmetEvent;
+import com.cascardo.backend.repositories.HelmetEventRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class HalmetEventValidator {
+public class HelmetEventValidator {
 
-    private final HalmetEventRepository halmetEventRepository;
+    private final HelmetEventRepository helmetEventRepository;
 
-    public void validateEventTypeNotExists(String eventType) {
-        if (halmetEventRepository.existsByEventType(eventType)) {
+    public void validateEventTypeNotExists(EventType eventType) {
+        if (helmetEventRepository.existsByType(eventType)) {
             throw new IllegalArgumentException("Ya existe un evento con el tipo: " + eventType);
         }
     }
 
     public void validateParentEventExists(Long parentEventId) {
-        if (!halmetEventRepository.existsById(parentEventId)) {
+        if (!helmetEventRepository.existsById(parentEventId)) {
             throw new IllegalArgumentException("El evento padre con ID " + parentEventId + " no existe.");
         }
     }
@@ -28,7 +29,8 @@ public class HalmetEventValidator {
     //Ej: A -> B -> A sería un ciclo
 
     public void validateNoCycles(Long parentEventId) {
-        HalmetEvent currentEvent = halmetEventRepository.findById(parentEventId)
+
+        HelmetEvent currentEvent = helmetEventRepository.findById(parentEventId)
                 .orElseThrow(() -> new IllegalArgumentException("El evento padre con ID " + parentEventId + " no existe."));
 
         while (currentEvent.getParentEvent() != null) {

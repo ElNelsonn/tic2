@@ -6,7 +6,6 @@ import com.cascardo.backend.models.User;
 
 public class UserMapper {
 
-
     public static User toEntity(CreateUserDto createUserDto, String hashedPassword) {
 
         return User.builder().
@@ -17,13 +16,12 @@ public class UserMapper {
                 build();
     }
 
-    public static UserDto toDto(User user, String) {
+    public static UserDto toDto(User user) {
 
-        return User.builder().
-                email(createUserDto.email()).
-                name(createUserDto.name()).
-                lastName(createUserDto.lastName()).
-                hashedPassword(hashedPassword).
+        return UserDto.builder().
+                email(user.getEmail()).
+                name(user.getName()).
+                lastName(user.getLastName()).
                 build();
     }
 
