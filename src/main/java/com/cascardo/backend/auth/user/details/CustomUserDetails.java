@@ -48,9 +48,4 @@ public class CustomUserDetails implements UserDetails {
         return id;
     }
 
-
-
-
-
-
 }

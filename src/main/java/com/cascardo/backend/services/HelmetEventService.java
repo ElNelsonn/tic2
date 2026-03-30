@@ -8,23 +8,24 @@ import com.cascardo.backend.validators.HelmetEventValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @AllArgsConstructor
-public class HalmetEventService {
+public class HelmetEventService {
 
     private final HelmetEventRepository helmetEventRepository;
     private final HelmetEventValidator helmetEventValidator;
 
     @Transactional
-    public HelmetEvent createHelmetEvent(CreateHelmetEventDto createHelmetEventDto) {
-        
-        if(createHelmetEventDto.parentEventId() != null){
+    public void createHelmetEvent(CreateHelmetEventDto createHelmetEventDto, MultipartFile photo) {
+
+        if (createHelmetEventDto.parentEventId() != null) {
             helmetEventValidator.validateParentEventExists(createHelmetEventDto.parentEventId());
         }
-        
-        HelmetEvent newEvent = HelmetEventMapper.toEntity(createHelmetEventDto);
-        return helmetEventRepository.save(newEvent);
+
+
+
     }
 
 

@@ -21,5 +21,15 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     defer-datasource-initialization: false
 
+minio:
+  endpoint: http://localhost:9000
+  access-key: minioadmin
+  secret-key: minioadmin
+  buckets:
+    event-photos: event-photos
+
+
+
+
 jwt:
   secret: "GgufvTUFtftgFTDrfoGYgyigvghuFTft7ftuF57E46ftyuFT7F86R65R465e43sRd56E45ws5drD758ed5E456WDftfib698vr56x3422z3rcdgvf34vc7H8ty6FGYG8yuygYgyg67yf6fiopjpijJKOHDRTSbi67bn78nyuy"

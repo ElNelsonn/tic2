@@ -100,12 +100,6 @@ public class JwtService {
 
         final Claims claims = extractAllClaims(token);
 
-        if (Objects.equals(claims.get("type", String.class), "REFRESH") ||
-                !Objects.equals(claims.get("type", String.class), "ACCESS")) {
-
-            throw new JwtException("Tipo de token invalido.");
-        }
-
         return CustomUserDetailsDto.builder().
                 email(claims.getSubject()).
                 name(claims.get("name", String.class)).

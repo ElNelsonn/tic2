@@ -11,6 +11,7 @@ import com.cascardo.backend.repositories.UserRepository;
 import com.cascardo.backend.validators.UserValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,7 @@ public class UserService {
 
         userRepository.save(newUser);
     }
+
 
     @Transactional(readOnly = true)
     public UserDto getUserByEmail(String email) {

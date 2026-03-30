@@ -11,9 +11,9 @@ import java.util.List;
 
 @Entity
 @Table(
-        name = "METRICS",
+        name = "DATA",
         uniqueConstraints = {
-                @UniqueConstraint(name = "UK_METRICS_DATE_TIME", columnNames = "DATE_TIME")
+                @UniqueConstraint(name = "UK_DATA_DATE_TIME", columnNames = "DATE_TIME")
         }
 )
 @Getter
@@ -21,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Metrics {
+public class Data {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +45,7 @@ public class Metrics {
     @Column(name = "UPDATED_AT", nullable = false)
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "metric", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "data", fetch = FetchType.LAZY)
     @Builder.Default
     private List<HelmetEvent> events = new ArrayList<>();
 }

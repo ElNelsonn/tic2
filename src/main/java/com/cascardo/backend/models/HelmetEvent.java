@@ -32,8 +32,8 @@ public class HelmetEvent {
     @Column(name = "DURATION", nullable = false)
     private Integer duration;
 
-    @Column(name = "IMAGE_URL", nullable = false)
-    private String imageUrl;
+    @Column(name = "IMAGE", nullable = false)
+    private String image;
 
     @OneToOne(mappedBy = "parentEvent")
     private HelmetEvent childEvent;
@@ -48,7 +48,7 @@ public class HelmetEvent {
             referencedColumnName = "DATE_TIME",
             nullable = false
     )
-    private Metrics metric;
+    private Data data;
 
     @CreationTimestamp
     @Column(name = "CREATED_AT", nullable = false, updatable = false)
@@ -60,6 +60,8 @@ public class HelmetEvent {
 
     @Transient
     public LocalDateTime getDateTime() {
-        return metric != null ? metric.getDateTime() : null;
+        return data != null ? data.getDateTime() : null;
     }
+
+
 }

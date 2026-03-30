@@ -12,10 +12,10 @@ public record CreateHelmetEventDto(
     @Min(value = 0, message = "La duración debe ser mayor o igual a 0.")
     Integer duration,
 
-    @Size(max = 500, message = "La URL de imagen no puede superar 500 caracteres.")
-    String imageUrl,
-
     @Positive(message = "El ID del evento padre debe ser mayor a 0.")
-    Long parentEventId
+    Long parentEventId,
+
+    @NotNull(message = "Los datos no puede ser nulo.")
+    DataDto data
 
 ) {}

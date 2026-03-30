@@ -13,12 +13,14 @@ public class HelmetEventValidator {
     private final HelmetEventRepository helmetEventRepository;
 
     public void validateEventTypeNotExists(EventType eventType) {
+
         if (helmetEventRepository.existsByType(eventType)) {
             throw new IllegalArgumentException("Ya existe un evento con el tipo: " + eventType);
         }
     }
 
     public void validateParentEventExists(Long parentEventId) {
+
         if (!helmetEventRepository.existsById(parentEventId)) {
             throw new IllegalArgumentException("El evento padre con ID " + parentEventId + " no existe.");
         }
