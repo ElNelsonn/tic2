@@ -19,27 +19,20 @@ public class HelmetEventValidator {
         }
     }
 
-    public void validateParentEventExists(Long parentEventId) {
+    public void validateParentCanBeAssigned(HelmetEvent parent) {
 
-        if (!helmetEventRepository.existsById(parentEventId)) {
-            throw new IllegalArgumentException("El evento padre con ID " + parentEventId + " no existe.");
+        // Regla 1: el padre no puede ser hijo de otro
+        if (parent.getParentEvent() != null) {
+            throw new IllegalArgumentException(
+                    "El evento " + parent.getId() + " no puede ser padre porque ya es hijo de otro evento."
+            );
         }
-    }
 
-    
-    //Valida que no haya ciclos en la cadena de eventos padres
-    //Ej: A -> B -> A sería un ciclo
-
-    public void validateNoCycles(Long parentEventId) {
-
-        HelmetEvent currentEvent = helmetEventRepository.findById(parentEventId)
-                .orElseThrow(() -> new IllegalArgumentException("El evento padre con ID " + parentEventId + " no existe."));
-
-        while (currentEvent.getParentEvent() != null) {
-            if (currentEvent.getParentEvent().getId().equals(parentEventId)) {
-                throw new IllegalArgumentException("Se detectó un ciclo en la cadena de eventos padres.");
-            }
-            currentEvent = currentEvent.getParentEvent();
+        // Regla 2: el padre no puede tener ya un hijo
+        if (parent.getChildEvent() != null) {
+            throw new IllegalArgumentException(
+                    "El evento " + parent.getId() + " no puede ser padre porque ya tiene un hijo asignado."
+            );
         }
     }
 }

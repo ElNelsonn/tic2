@@ -1,7 +1,7 @@
 package com.cascardo.backend.services;
 
 
-import com.cascardo.backend.dto.DataDto;
+import com.cascardo.backend.dto.AddDataDto;
 import com.cascardo.backend.exceptions.DateTimeConflictException;
 import com.cascardo.backend.mappers.DataMapper;
 import com.cascardo.backend.models.Data;
@@ -20,13 +20,13 @@ public class DataService {
 
 
     @Transactional
-    public void saveData(DataDto dataDto) throws DateTimeConflictException {
+    public Data saveData(AddDataDto addDataDto) throws DateTimeConflictException {
 
-        dataValidator.validateDateTimeIsNotInUse(dataDto.dateTime());
+        dataValidator.validateDateTimeIsNotInUse(addDataDto.dateTime());
 
-        Data newData = DataMapper.toEntity(dataDto);
+        Data newData = DataMapper.toEntity(addDataDto);
 
-        dataRepository.save(newData);
+        return dataRepository.save(newData);
     }
 
 

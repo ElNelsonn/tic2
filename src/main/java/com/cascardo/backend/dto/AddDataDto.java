@@ -1,6 +1,5 @@
 package com.cascardo.backend.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Builder;
@@ -8,7 +7,7 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Builder
-public record DataDto(
+public record AddDataDto(
 
         @NotNull(message = "La fecha no puede ser nula.")
         LocalDateTime dateTime,

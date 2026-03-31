@@ -32,7 +32,7 @@ public class HelmetEvent {
     @Column(name = "DURATION", nullable = false)
     private Integer duration;
 
-    @Column(name = "IMAGE", nullable = false)
+    @Column(name = "IMAGE", nullable = true)
     private String image;
 
     @OneToOne(mappedBy = "parentEvent")

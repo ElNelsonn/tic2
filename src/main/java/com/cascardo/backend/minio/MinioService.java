@@ -49,13 +49,32 @@ public class MinioService {
     }
 
 
-    public String saveEventPhoto(Long eventId, MultipartFile photo) throws MinioException {
+    public String saveEventPhoto(Long eventId, MultipartFile photo) {
 
         String bucket = minioProperties.getBuckets().get("event-photos");
 
         String folder = String.valueOf(eventId);
 
         return uploadFile(photo, bucket, folder);
+    }
+
+    public void deleteEventPhoto(String objectName) {
+        if (objectName == null || objectName.isBlank()) {
+            return;
+        }
+
+        String bucket = minioProperties.getBuckets().get("event-photos");
+
+        try {
+            minioClient.removeObject(
+                    RemoveObjectArgs.builder()
+                            .bucket(bucket)
+                            .object(objectName)
+                            .build()
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("Error borrando archivo en MinIO", e);
+        }
     }
 
 

@@ -1,17 +1,17 @@
 package com.cascardo.backend.mappers;
 
-import com.cascardo.backend.dto.DataDto;
+import com.cascardo.backend.dto.AddDataDto;
 import com.cascardo.backend.models.Data;
 
 public class DataMapper {
 
 
-    public static Data toEntity(DataDto dataDto) {
+    public static Data toEntity(AddDataDto addDataDto) {
 
         return Data.builder().
-                dateTime(dataDto.dateTime()).
-                temperature(dataDto.temperature()).
-                humidity(dataDto.humidity()).
+                dateTime(addDataDto.dateTime()).
+                temperature(addDataDto.temperature()).
+                humidity(addDataDto.humidity()).
                 build();
     }
 

@@ -5,12 +5,11 @@ import com.cascardo.backend.models.HelmetEvent;
 
 public class HelmetEventMapper {
 
-    public static HelmetEvent toEntity(CreateHelmetEventDto createHelmetEventDto, String image) {
+    public static HelmetEvent toEntity(CreateHelmetEventDto createHelmetEventDto) {
 
         return HelmetEvent.builder()
                 .type(createHelmetEventDto.type())
                 .duration(createHelmetEventDto.duration())
-                .image(image)
                 .build();
     }
 }

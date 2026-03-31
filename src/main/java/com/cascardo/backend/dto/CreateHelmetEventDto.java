@@ -16,6 +16,6 @@ public record CreateHelmetEventDto(
     Long parentEventId,
 
     @NotNull(message = "Los datos no puede ser nulo.")
-    DataDto data
+    AddDataDto addDataDto
 
 ) {}

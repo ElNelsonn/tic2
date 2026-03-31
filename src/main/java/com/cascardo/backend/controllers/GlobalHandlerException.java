@@ -3,6 +3,7 @@ package com.cascardo.backend.controllers;
 
 import com.cascardo.backend.auth.exceptions.SessionExpiredException;
 import com.cascardo.backend.dto.ErrorResponse;
+import com.cascardo.backend.exceptions.DateTimeConflictException;
 import com.cascardo.backend.exceptions.EmailAlreadyInUseException;
 import com.cascardo.backend.exceptions.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -67,6 +68,25 @@ public class GlobalHandlerException {
 
         ErrorResponse error = ErrorResponse.builder()
                 .error("EMAIL_ALREADY_IN_USE")
+                .message(ex.getMessage())
+                .status(HttpStatus.CONFLICT.value())
+                .timestamp(LocalDateTime.now())
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(error);
+    }
+
+    @ExceptionHandler(DateTimeConflictException.class)
+    public ResponseEntity<ErrorResponse> handleDateTimeConflictException(
+            DateTimeConflictException ex,
+            HttpServletRequest request
+    ) {
+
+        ErrorResponse error = ErrorResponse.builder()
+                .error("DATE_TIME_ALREADY_USED")
                 .message(ex.getMessage())
                 .status(HttpStatus.CONFLICT.value())
                 .timestamp(LocalDateTime.now())
